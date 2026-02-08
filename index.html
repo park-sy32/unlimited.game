@@ -60,20 +60,17 @@
     </div>
 
     <div id="tab-investment" class="tab-content" style="display:none;">
-        <div class="stock-market">
-            <h3>💰 금융 시장</h3>
-            <div class="invest-item">
-                <strong>🪙 비트코인</strong> <span id="coin-price">50,000,000원</span>
-                <button onclick="buyAsset('coin')">매수</button>
-                <button onclick="sellAsset('coin')">매도</button>
-            </div>
-            <div class="invest-item">
-                <strong>🏢 한태전자</strong> <span id="stock-price">70,000원</span>
-                <button onclick="buyAsset('stock')">매수</button>
-                <button onclick="sellAsset('stock')">매도</button>
-            </div>
+    <div style="display: flex; gap: 20px;">
+        <div style="flex: 1;">
+            <h3>🏢 주식 시장</h3>
+            <div id="stock-list-container" style="max-height: 400px; overflow-y: auto;"></div>
+        </div>
+        <div style="flex: 1;">
+            <h3>🪙 코인 거래소</h3>
+            <div id="coin-list-container" style="max-height: 400px; overflow-y: auto;"></div>
         </div>
     </div>
+</div>
 
     <div id="tab-realestate" class="tab-content" style="display:none;">
         <h3>🏠 부동산 매물</h3>
