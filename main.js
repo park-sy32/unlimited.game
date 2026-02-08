@@ -4,27 +4,29 @@ window.assets = {
     money: 1000000,
     // 주식 10종목 (성격별 분류)
     stocks: [
-        { id: 's1', name: '한태전자', price: 72000, count: 0, volt: 0.03, desc: '국가 대표 우량주' },
-        { id: 's2', name: 'K-자동차', price: 180000, count: 0, volt: 0.04, desc: '안정적인 제조기업' },
-        { id: 's3', name: '네오버', price: 210000, count: 0, volt: 0.05, desc: 'IT 플랫폼 대장주' },
-        { id: 's4', name: '바이오진', price: 45000, count: 0, volt: 0.12, desc: '신약 개발 테마주' },
-        { id: 's5', name: '우주항공', price: 320000, count: 0, volt: 0.08, desc: '미래 핵심 기술주' },
-        { id: 's6', name: '한태건설', price: 12000, count: 0, volt: 0.06, desc: '부동산 경기 민감주' },
-        { id: 's7', name: '엔터테인', price: 85000, count: 0, volt: 0.09, desc: 'K-컬처 주역' },
-        { id: 's8', name: '푸드뱅크', price: 32000, count: 0, volt: 0.02, desc: '경기 불황 방어주' },
-        { id: 's9', name: '배터리업', price: 540000, count: 0, volt: 0.15, desc: '고수익 에너지주' },
-        { id: 's10', name: '개미지옥', price: 5000, count: 0, volt: 0.25, desc: '상장폐지 위기 종목' }
+        { id: 's1', name: '한태전자', price: 72000, count: 0, volt: 0.03, desc: '국가 대표 우량주', history: [72000] },
+        { id: 's2', name: 'K-자동차', price: 180000, count: 0, volt: 0.04, desc: '안정적인 제조기업', history: [180000] },
+        { id: 's3', name: '네오버', price: 210000, count: 0, volt: 0.05, desc: 'IT 플랫폼 대장주', history: [210000] },
+        { id: 's4', name: '바이오진', price: 45000, count: 0, volt: 0.12, desc: '신약 개발 테마주', history: [45000] },
+        { id: 's5', name: '우주항공', price: 320000, count: 0, volt: 0.08, desc: '미래 핵심 기술주', history: [320000] },
+        { id: 's6', name: '한태건설', price: 12000, count: 0, volt: 0.06, desc: '부동산 경기 민감주', history: [12000] },
+        { id: 's7', name: '엔터테인', price: 85000, count: 0, volt: 0.09, desc: 'K-컬처 주역', history: [85000] },
+        { id: 's8', name: '푸드뱅크', price: 32000, count: 0, volt: 0.02, desc: '경기 불황 방어주', history: [32000] },
+        { id: 's9', name: '배터리업', price: 540000, count: 0, volt: 0.15, desc: '고수익 에너지주', history: [540000] },
+        { id: 's10', name: '개미지옥', price: 5000, count: 0, volt: 0.25, desc: '상장폐지 위기 종목', history: [5000] }
     ],
     // 코인 5종목
     coins: [
-        { id: 'c1', name: '비트코인', price: 65000000, count: 0, volt: 0.15, desc: '디지털 금' },
-        { id: 'c2', name: '이더리움', price: 3500000, count: 0, volt: 0.18, desc: '스마트 컨트랙트' },
-        { id: 'c3', name: '리플코인', price: 800, count: 0, volt: 0.25, desc: '송금용 가상자산' },
-        { id: 'c4', name: '도지코인', price: 150, count: 0, volt: 0.40, desc: '밈 코인의 조상' },
-        { id: 'c5', name: '한태코인', price: 10, count: 0, volt: 0.80, desc: '인생 역전 아니면 파산' }
+        { id: 'c1', name: '비트코인', price: 65000000, count: 0, volt: 0.15, desc: '디지털 금', history: [65000000] },
+        { id: 'c2', name: '이더리움', price: 3500000, count: 0, volt: 0.18, desc: '스마트 컨트랙트', history: [3500000] },
+        { id: 'c3', name: '리플코인', price: 800, count: 0, volt: 0.25, desc: '송금용 가상자산', history: [800] },
+        { id: 'c4', name: '도지코인', price: 150, count: 0, volt: 0.40, desc: '밈 코인의 조상', history: [150] },
+        { id: 'c5', name: '한태코인', price: 10, count: 0, volt: 0.80, desc: '인생 역전 아니면 파산', history: [10] }
     ],
     buildings: []
 };
+
+window.charts = {}; // Chart.js 인스턴스를 저장할 객체
 
 let taxTimer = 60; // 60초마다 징수
 let taxInterval;
@@ -42,24 +44,24 @@ function startAsGuest() {
         money: 1000000,
         // 주식 10종목 (성격별 분류) - 초기화 시에도 전체 구조 유지
         stocks: [
-            { id: 's1', name: '한태전자', price: 72000, count: 0, volt: 0.03, desc: '국가 대표 우량주' },
-            { id: 's2', name: 'K-자동차', price: 180000, count: 0, volt: 0.04, desc: '안정적인 제조기업' },
-            { id: 's3', name: '네오버', price: 210000, count: 0, volt: 0.05, desc: 'IT 플랫폼 대장주' },
-            { id: 's4', name: '바이오진', price: 45000, count: 0, volt: 0.12, desc: '신약 개발 테마주' },
-            { id: 's5', name: '우주항공', price: 320000, count: 0, volt: 0.08, desc: '미래 핵심 기술주' },
-            { id: 's6', name: '한태건설', price: 12000, count: 0, volt: 0.06, desc: '부동산 경기 민감주' },
-            { id: 's7', name: '엔터테인', price: 85000, count: 0, volt: 0.09, desc: 'K-컬처 주역' },
-            { id: 's8', name: '푸드뱅크', price: 32000, count: 0, volt: 0.02, desc: '경기 불황 방어주' },
-            { id: 's9', name: '배터리업', price: 540000, count: 0, volt: 0.15, desc: '고수익 에너지주' },
-            { id: 's10', name: '개미지옥', price: 5000, count: 0, volt: 0.25, desc: '상장폐지 위기 종목' }
+            { id: 's1', name: '한태전자', price: 72000, count: 0, volt: 0.03, desc: '국가 대표 우량주', history: [72000] },
+            { id: 's2', name: 'K-자동차', price: 180000, count: 0, volt: 0.04, desc: '안정적인 제조기업', history: [180000] },
+            { id: 's3', name: '네오버', price: 210000, count: 0, volt: 0.05, desc: 'IT 플랫폼 대장주', history: [210000] },
+            { id: 's4', name: '바이오진', price: 45000, count: 0, volt: 0.12, desc: '신약 개발 테마주', history: [45000] },
+            { id: 's5', name: '우주항공', price: 320000, count: 0, volt: 0.08, desc: '미래 핵심 기술주', history: [320000] },
+            { id: 's6', name: '한태건설', price: 12000, count: 0, volt: 0.06, desc: '부동산 경기 민감주', history: [12000] },
+            { id: 's7', name: '엔터테인', price: 85000, count: 0, volt: 0.09, desc: 'K-컬처 주역', history: [85000] },
+            { id: 's8', name: '푸드뱅크', price: 32000, count: 0, volt: 0.02, desc: '경기 불황 방어주', history: [32000] },
+            { id: 's9', name: '배터리업', price: 540000, count: 0, volt: 0.15, desc: '고수익 에너지주', history: [540000] },
+            { id: 's10', name: '개미지옥', price: 5000, count: 0, volt: 0.25, desc: '상장폐지 위기 종목', history: [5000] }
         ],
         // 코인 5종목 - 초기화 시에도 전체 구조 유지
         coins: [
-            { id: 'c1', name: '비트코인', price: 65000000, count: 0, volt: 0.15, desc: '디지털 금' },
-            { id: 'c2', name: '이더리움', price: 3500000, count: 0, volt: 0.18, desc: '스마트 컨트랙트' },
-            { id: 'c3', name: '리플코인', price: 800, count: 0, volt: 0.25, desc: '송금용 가상자산' },
-            { id: 'c4', name: '도지코인', price: 150, count: 0, volt: 0.40, desc: '밈 코인의 조상' },
-            { id: 'c5', name: '한태코인', price: 10, count: 0, volt: 0.80, desc: '인생 역전 아니면 파산' }
+            { id: 'c1', name: '비트코인', price: 65000000, count: 0, volt: 0.15, desc: '디지털 금', history: [65000000] },
+            { id: 'c2', name: '이더리움', price: 3500000, count: 0, volt: 0.18, desc: '스마트 컨트랙트', history: [3500000] },
+            { id: 'c3', name: '리플코인', price: 800, count: 0, volt: 0.25, desc: '송금용 가상자산', history: [800] },
+            { id: 'c4', name: '도지코인', price: 150, count: 0, volt: 0.40, desc: '밈 코인의 조상', history: [150] },
+            { id: 'c5', name: '한태코인', price: 10, count: 0, volt: 0.80, desc: '인생 역전 아니면 파산', history: [10] }
         ],
         buildings: []
     };
@@ -85,6 +87,7 @@ function startGame(userDisplayName) {
     // UI 초기화 및 탭 표시
     updateUI();
     renderMarket(); // 시장 정보를 그립니다.
+    initCharts(); // 차트를 초기화합니다.
     showTab('work'); 
 
     // 시세 변동 및 부동산 수익 시작
@@ -149,6 +152,7 @@ function renderMarket() {
                 <button onclick="trade('stocks', '${s.id}', 'buy')">매수</button>
                 <button onclick="trade('stocks', '${s.id}', 'sell')">매도</button>
             </div>
+            <div style="width: 100%; height: 50px; margin-top: 10px;"><canvas id="chart-${s.id}"></canvas></div>
         </div>
     `).join('');
 
@@ -161,6 +165,7 @@ function renderMarket() {
                 <button onclick="trade('coins', '${c.id}', 'buy')">매수</button>
                 <button onclick="trade('coins', '${c.id}', 'sell')">매도</button>
             </div>
+            <div style="width: 100%; height: 50px; margin-top: 10px;"><canvas id="chart-${c.id}"></canvas></div>
         </div>
     `).join('');
 }
@@ -203,6 +208,8 @@ function updateMarketPrices() {
         change = Math.min(Math.max(change, -MAX_STOCK_CHANGE), MAX_STOCK_CHANGE);
         
         s.price = Math.max(100, Math.floor(s.price * (1 + change)));
+        s.history.push(s.price); // 차트 기록에 추가
+        if (s.history.length > 20) s.history.shift(); // 20개까지만 유지
         // 개별 주식 가격 업데이트 (UI)
         const priceElement = document.getElementById(`price-${s.id}`);
         if (priceElement) priceElement.innerText = s.price.toLocaleString() + "원";
@@ -213,12 +220,15 @@ function updateMarketPrices() {
         const change = (Math.random() * (c.volt * 2) - c.volt); // -volt ~ +volt
         // 코인은 제한 없이 변동 (최저가 1원)
         c.price = Math.max(1, Math.floor(c.price * (1 + change)));
+        c.history.push(c.price); // 차트 기록에 추가
+        if (c.history.length > 20) c.history.shift(); // 20개까지만 유지
         // 개별 코인 가격 업데이트 (UI)
         const priceElement = document.getElementById(`price-${c.id}`);
         if (priceElement) priceElement.innerText = c.price.toLocaleString() + "원";
     });
     
     updateUI();
+    updateCharts(); // 차트 업데이트
 }
 
 // 부동산 자동 수익 시스템
@@ -374,6 +384,69 @@ function addLog(msg, color = '#7f8c8d') {
     while (logBox.children.length > 50) {
         logBox.removeChild(logBox.lastChild);
     }
+}
+
+// Chart.js 관련 함수
+function initCharts() {
+    console.log("initCharts called.");
+    ['stocks', 'coins'].forEach(category => {
+        window.assets[category].forEach(asset => {
+            const ctx = document.getElementById(`chart-${asset.id}`);
+            if (ctx) {
+                window.charts[asset.id] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({length: asset.history.length}, (_, i) => i + 1), // 시간축 레이블
+                        datasets: [{
+                            label: asset.name,
+                            data: asset.history,
+                            borderColor: category === 'stocks' ? 'rgb(75, 192, 192)' : 'rgb(255, 159, 64)',
+                            borderWidth: 1,
+                            pointRadius: 0, // 점 숨김
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 0 // 애니메이션 비활성화
+                        },
+                        scales: {
+                            x: {
+                                display: false // x축 숨김
+                            },
+                            y: {
+                                display: false // y축 숨김
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: false // 범례 숨김
+                            },
+                            tooltip: {
+                                enabled: false // 툴팁 숨김
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+}
+
+function updateCharts() {
+    console.log("updateCharts called.");
+    ['stocks', 'coins'].forEach(category => {
+        window.assets[category].forEach(asset => {
+            if (window.charts[asset.id]) {
+                const chart = window.charts[asset.id];
+                chart.data.labels = Array.from({length: asset.history.length}, (_, i) => i + 1);
+                chart.data.datasets[0].data = asset.history;
+                chart.update();
+            }
+        });
+    });
 }
 
 // === 테마 관리 로직 ===
