@@ -53,6 +53,7 @@ function startGame(userDisplayName) {
     taxInterval = setInterval(() => {
         if (!isGameRunning) return;
         console.log("Tax interval ticking. taxTimer:", taxTimer);
+        console.log("Tax interval ticking. taxTimer:", taxTimer);
         taxTimer--;
         const taxInfo = calculateTax();
         
@@ -69,6 +70,7 @@ function startGame(userDisplayName) {
 
 // UI 업데이트 함수
 function updateUI() {
+    console.log("updateUI called. Current assets:", window.assets);
     console.log("updateUI called. Current assets:", window.assets);
     document.getElementById('money').innerText = window.assets.money.toLocaleString() + "원";
     document.getElementById('owned-coin').innerText = window.assets.coin.count.toLocaleString();
@@ -114,6 +116,7 @@ function showTab(tabName) {
 // 재테크 통합 시세 변동
 function updateMarketPrices() {
     console.log("updateMarketPrices called.");
+    console.log("updateMarketPrices called.");
     const coinChange = (Math.random() * (window.assets.coin.volatility * 2) - window.assets.coin.volatility); 
     window.assets.coin.price = Math.max(1000, Math.floor(window.assets.coin.price * (1 + coinChange)));
     
@@ -125,6 +128,7 @@ function updateMarketPrices() {
 
 // 부동산 자동 수익 시스템
 function applyBuildingIncome() {
+    console.log("applyBuildingIncome called.");
     console.log("applyBuildingIncome called.");
     if (window.assets.buildings.count > 0) {
         const totalIncome = window.assets.buildings.count * window.assets.buildings.income;
