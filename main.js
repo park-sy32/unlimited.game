@@ -60,25 +60,51 @@ function addLog(msg) {
     logBox.innerHTML = `> ${msg}<br>${logBox.innerHTML}`;
 }
 
-// === 테마 관리 로직 ===
+// === 테마 및 모달 관리 로직 ===
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 테마 관리 ---
     const themeToggle = document.getElementById('theme-toggle');
     const currentTheme = localStorage.getItem('theme');
 
-    // 페이지 로드 시 테마 적용
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-mode');
     }
 
-    // 버튼 클릭 시 테마 변경
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
-        
-        // 변경된 테마 정보 저장
-        let theme = 'light';
-        if (document.body.classList.contains('dark-mode')) {
-            theme = 'dark';
-        }
+        let theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
         localStorage.setItem('theme', theme);
+    });
+
+    // --- 로그인 모달 관리 ---
+    const loginButton = document.querySelector('.btn-login');
+    const loginModal = document.getElementById('login-modal');
+    const closeModalButton = document.querySelector('.btn-close-modal');
+    const loginForm = document.getElementById('login-form');
+
+    function showLoginModal() {
+        loginModal.classList.remove('hidden');
+    }
+
+    function hideLoginModal() {
+        loginModal.classList.add('hidden');
+    }
+
+    loginButton.addEventListener('click', showLoginModal);
+    closeModalButton.addEventListener('click', hideLoginModal);
+
+    loginForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('로그인 되었습니다! (현재는 시뮬레이션)');
+        // 실제 로그인을 하게 된다면 여기서 사용자 이름을 받아 게임을 시작할 수 있습니다.
+        // 예: startGame('사용자ID');
+        hideLoginModal();
+    });
+
+    // 모달 외부 클릭 시 닫기
+    loginModal.addEventListener('click', (event) => {
+        if (event.target === loginModal) {
+            hideLoginModal();
+        }
     });
 });
