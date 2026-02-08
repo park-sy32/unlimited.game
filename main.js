@@ -97,9 +97,10 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
         alert('로그인 되었습니다! (현재는 시뮬레이션)');
-        // 실제 로그인을 하게 된다면 여기서 사용자 이름을 받아 게임을 시작할 수 있습니다.
-        // 예: startGame('사용자ID');
+        const usernameInput = loginForm.querySelector('input[type="text"]');
+        const username = usernameInput ? usernameInput.value : '로그인 사용자';
         hideLoginModal();
+        startGame(username);
     });
 
     // 로그인 모달 외부 클릭 시 닫기
