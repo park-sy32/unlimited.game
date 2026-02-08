@@ -194,9 +194,14 @@ function showTab(tabName) {
 // 재테크 통합 시세 변동
 function updateMarketPrices() {
     console.log("updateMarketPrices called.");
+    const MAX_STOCK_CHANGE = 0.30; // 30%
+
     // 주식 가격 변동
     window.assets.stocks.forEach(s => {
-        const change = (Math.random() * (s.volt * 2) - s.volt); // -volt ~ +volt
+        let change = (Math.random() * (s.volt * 2) - s.volt); // -volt ~ +volt
+        // 주식은 최대 30% 상승/하락 제한
+        change = Math.min(Math.max(change, -MAX_STOCK_CHANGE), MAX_STOCK_CHANGE);
+        
         s.price = Math.max(100, Math.floor(s.price * (1 + change)));
         // 개별 주식 가격 업데이트 (UI)
         const priceElement = document.getElementById(`price-${s.id}`);
@@ -206,6 +211,7 @@ function updateMarketPrices() {
     // 코인 가격 변동
     window.assets.coins.forEach(c => {
         const change = (Math.random() * (c.volt * 2) - c.volt); // -volt ~ +volt
+        // 코인은 제한 없이 변동 (최저가 1원)
         c.price = Math.max(1, Math.floor(c.price * (1 + change)));
         // 개별 코인 가격 업데이트 (UI)
         const priceElement = document.getElementById(`price-${c.id}`);
