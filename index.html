@@ -13,7 +13,8 @@
         <h1 style="font-size: 40px; margin-bottom: 30px;">UNLIMITED</h1>
         <p>현실을 넘어선 무한한 자산의 세계</p>
         <button class="btn-login" onclick="loginWithGoogle()">Google 계정으로 로그인</button><br>
-        <button class="btn-guest" onclick="registerUser()">Google 계정으로 회원가입</button>
+        <button class="btn-guest" onclick="registerUser()">Google 계정으로 회원가입</button><br>
+        <button class="btn-guest" onclick="startAsGuest()" style="background: #7f8c8d;">게스트 모드로 시작</button>
     </div>
 </div>
 
@@ -25,6 +26,16 @@
         <code style="color: #3498db;">https://unlimited.hantae.io</code>
     </div>
     
+    <div class="stats" style="border: 2px solid #e74c3c;">
+        <div style="display: flex; justify-content: space-between;">
+            <span>정부 세금 징수까지</span>
+            <span id="tax-timer" style="color: #e74c3c; font-weight: bold;">60초</span>
+        </div>
+        <div style="font-size: 13px; color: #bdc3c7; margin-top: 5px;">
+            예상 납부액: <span id="expected-tax">0원</span> (세율: <span id="tax-rate">0%</span>)
+        </div>
+    </div>
+
     <div class="stats">
         <div id="user-info" style="font-size: 14px; color: #bdc3c7; margin-bottom: 5px;">사용자: -</div>
         <div>현재 자산</div>
