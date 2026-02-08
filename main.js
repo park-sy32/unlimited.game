@@ -79,8 +79,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 로그인 모달 관리 ---
     const loginButton = document.querySelector('.btn-login');
     const loginModal = document.getElementById('login-modal');
-    const closeModalButton = document.querySelector('.btn-close-modal');
+    const closeModalButton = document.querySelector('.btn-close-modal'); // 로그인 모달 닫기 버튼
     const loginForm = document.getElementById('login-form');
+    const showRegisterModalButton = document.getElementById('show-register-modal'); // 로그인 모달 내 회원가입 버튼
 
     function showLoginModal() {
         loginModal.classList.remove('hidden');
@@ -91,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     loginButton.addEventListener('click', showLoginModal);
-    closeModalButton.addEventListener('click', hideLoginModal);
+    closeModalButton.addEventListener('click', hideLoginModal); // 로그인 모달 닫기 버튼 이벤트
 
     loginForm.addEventListener('submit', (event) => {
         event.preventDefault();
@@ -101,10 +102,46 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLoginModal();
     });
 
-    // 모달 외부 클릭 시 닫기
+    // 로그인 모달 외부 클릭 시 닫기
     loginModal.addEventListener('click', (event) => {
         if (event.target === loginModal) {
             hideLoginModal();
+        }
+    });
+
+    // --- 회원가입 모달 관리 ---
+    const registerModal = document.getElementById('register-modal');
+    const closeRegisterModalButton = document.querySelector('.register-close-btn'); // 회원가입 모달 닫기 버튼
+    const registerForm = document.getElementById('register-form');
+
+    function showRegisterModal() {
+        registerModal.classList.remove('hidden');
+    }
+
+    function hideRegisterModal() {
+        registerModal.classList.add('hidden');
+    }
+
+    // 로그인 모달에서 회원가입 버튼 클릭 시
+    showRegisterModalButton.addEventListener('click', () => {
+        hideLoginModal();
+        showRegisterModal();
+    });
+
+    closeRegisterModalButton.addEventListener('click', hideRegisterModal); // 회원가입 모달 닫기 버튼 이벤트
+
+    registerForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert('회원가입이 완료되었습니다! (현재는 시뮬레이션)');
+        // 실제 회원가입 로직 (예: 서버로 데이터 전송)
+        hideRegisterModal();
+        showLoginModal(); // 회원가입 후 로그인 화면으로 돌아가기
+    });
+
+    // 회원가입 모달 외부 클릭 시 닫기
+    registerModal.addEventListener('click', (event) => {
+        if (event.target === registerModal) {
+            hideRegisterModal();
         }
     });
 });

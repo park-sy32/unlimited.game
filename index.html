@@ -26,6 +26,21 @@
                 <button type="submit" class="btn-login">로그인</button>
             </form>
             <button class="btn-close-modal">닫기</button>
+            <button id="show-register-modal" class="btn-guest" style="width: 100%; margin-top: 10px;">회원가입하기</button>
+        </div>
+    </div>
+
+    <!-- 회원가입 모달 -->
+    <div id="register-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h2>회원가입</h2>
+            <form id="register-form">
+                <input type="text" placeholder="아이디" required>
+                <input type="password" placeholder="비밀번호" required>
+                <input type="password" placeholder="비밀번호 확인" required>
+                <button type="submit" class="btn-login">회원가입</button>
+            </form>
+            <button class="btn-close-modal register-close-btn">닫기</button>
         </div>
     </div>
 </div>
