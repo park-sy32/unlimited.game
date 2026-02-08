@@ -1,1 +1,162 @@
-/* Add styles here */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --container-bg: #ffffff;
+    --container-border: #ddd;
+    --stats-bg: #f0f2f5;
+    --stats-text: #333333;
+    --money-color: #27ae60;
+    --log-text: #7f8c8d;
+    --log-border: #eee;
+    --button-bg: #3498db;
+    --button-text: #ffffff;
+    --intro-bg: rgba(0, 0, 0, 0.7);
+    --intro-box-bg: #fdfdfd;
+    --intro-box-border: #3498db;
+}
+
+body.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #ffffff;
+    --container-bg: #2c3e50;
+    --container-border: #4a6572;
+    --stats-bg: #34495e;
+    --stats-text: #ffffff;
+    --money-color: #2ecc71;
+    --log-text: #95a5a6;
+    --log-border: #4a6572;
+    --button-bg: #3498db;
+    --button-text: #ffffff;
+    --intro-bg: rgba(0, 0, 0, 0.9);
+    --intro-box-bg: #2c3e50;
+    --intro-box-border: #3498db;
+}
+
+body { 
+    font-family: 'Apple SD Gothic Neo', sans-serif; 
+    background: var(--bg-color); 
+    color: var(--text-color);
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0; 
+    transition: background 0.3s, color 0.3s;
+}
+
+/* 인트로 화면 스타일 */
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--intro-bg);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 100; transition: 0.5s;
+}
+.intro-box { 
+    text-align: center; 
+    background: var(--intro-box-bg); 
+    color: var(--text-color);
+    padding: 40px; 
+    border-radius: 20px; 
+    border: 2px solid var(--intro-box-border); 
+}
+.url-text { 
+    color: #3498db; 
+    font-family: monospace; 
+    margin-bottom: 20px; 
+    display: block; 
+}
+
+/* 게임 컨테이너 (기본은 숨김) */
+.game-container { 
+    position: relative;
+    background: var(--container-bg); 
+    padding: 30px; 
+    border-radius: 15px; 
+    width: 400px; 
+    color: var(--text-color); 
+    display: none; 
+    border: 1px solid var(--container-border);
+}
+
+/* 버튼 스타일 */
+button { 
+    cursor: pointer; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 12px 25px; 
+    transition: 0.2s; 
+    font-weight: bold; 
+    margin: 5px; 
+}
+.btn-login { 
+    background: var(--button-bg); 
+    color: var(--button-text); 
+    width: 200px; 
+}
+.btn-guest { 
+    background: #95a5a6; 
+    color: var(--button-text); 
+    width: 200px; 
+}
+.btn-work { 
+    width: 100%; 
+    background: #34495e; 
+    color: var(--button-text); 
+    font-size: 18px; 
+    margin-bottom: 20px; 
+}
+
+/* 테마 토글 버튼 */
+.header-utils {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+#theme-toggle {
+    background: transparent;
+    border: 1px solid var(--container-border);
+    color: var(--text-color);
+    padding: 5px 10px;
+    font-size: 18px;
+}
+
+/* 기존 게임 스타일 유지 */
+.stats { 
+    background: var(--stats-bg); 
+    color: var(--stats-text); 
+    padding: 20px; 
+    border-radius: 10px; 
+    margin-bottom: 20px; 
+}
+.money { 
+    font-size: 24px; 
+    font-weight: bold; 
+    color: var(--money-color); 
+}
+.stock-market { 
+    border: 1px solid var(--container-border); 
+    padding: 15px; 
+    border-radius: 10px; 
+}
+.stock-item { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+.price-up { 
+    color: #e74c3c; 
+    font-weight: bold; 
+}
+.price-down { 
+    color: #3498db; 
+    font-weight: bold; 
+}
+.log { 
+    font-size: 12px; 
+    color: var(--log-text); 
+    height: 60px; 
+    overflow-y: auto; 
+    margin-top: 15px; 
+    border-top: 1px solid var(--log-border); 
+    padding-top: 10px; 
+}
