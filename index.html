@@ -1,14 +1,140 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <title>UNLIMITED - 한태의 인생 역전</title>
+    <style>
+        body { font-family: 'Apple SD Gothic Neo', sans-serif; background: #1a1a1a; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: white; }
+        
+        /* 인트로 화면 스타일 */
+        #intro-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 100; transition: 0.5s;
+        }
+        .intro-box { text-align: center; background: #2c3e50; padding: 40px; border-radius: 20px; border: 2px solid #3498db; }
+        .url-text { color: #3498db; font-family: monospace; margin-bottom: 20px; display: block; }
+        
+        /* 게임 컨테이너 (기본은 숨김) */
+        .game-container { background: white; padding: 30px; border-radius: 15px; width: 400px; color: #333; display: none; }
+        
+        /* 버튼 스타일 */
+        button { cursor: pointer; border: none; border-radius: 5px; padding: 12px 25px; transition: 0.2s; font-weight: bold; margin: 5px; }
+        .btn-login { background: #3498db; color: white; width: 200px; }
+        .btn-guest { background: #95a5a6; color: white; width: 200px; }
+        .btn-work { width: 100%; background: #34495e; color: white; font-size: 18px; margin-bottom: 20px; }
+        
+        /* 기존 게임 스타일 유지 */
+        .stats { background: #2c3e50; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .money { font-size: 24px; font-weight: bold; color: #2ecc71; }
+        .stock-market { border: 1px solid #ddd; padding: 15px; border-radius: 10px; }
+        .stock-item { display: flex; justify-content: space-between; align-items: center; }
+        .price-up { color: #e74c3c; font-weight: bold; }
+        .price-down { color: #3498db; font-weight: bold; }
+        .log { font-size: 12px; color: #7f8c8d; height: 60px; overflow-y: auto; margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+    </style>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+<div id="intro-screen">
+    <div class="intro-box">
+        <span class="url-text">https://unlimited.hantae.io</span>
+        <h1 style="font-size: 40px; margin-bottom: 30px;">UNLIMITED</h1>
+        <p>현실을 넘어선 무한한 자산의 세계</p>
+        <button class="btn-login" onclick="alert('현재 개발 중인 기능입니다! 게스트 모드를 이용해주세요.')">로그인하여 시작</button><br>
+        <button class="btn-guest" onclick="startGame('게스트')">게스트 모드로 참가</button>
+    </div>
+</div>
+
+<div class="game-container" id="game-main">
+    <div style="text-align: center; margin-bottom: 15px;">
+        <code style="color: #3498db;">https://unlimited.hantae.io</code>
+    </div>
+    
+    <div class="stats">
+        <div id="user-info" style="font-size: 14px; color: #bdc3c7; margin-bottom: 5px;">사용자: -</div>
+        <div>현재 자산</div>
+        <div class="money" id="money">1,000,000원</div>
+        <div id="assets" style="font-size: 14px; margin-top: 5px;">보유 주식: 0주</div>
+    </div>
+
+    <button class="btn-work" onclick="work()">💪 업무 수행 (+10,000원)</button>
+
+    <div class="stock-market">
+        <h3>🔥 가상 자산 시세</h3>
+        <div class="stock-item">
+            <div><strong>한태코인</strong><br><span id="stock-price">10,000원</span></div>
+            <div>
+                <button style="background:#e74c3c; color:white;" onclick="buyStock()">매수</button>
+                <button style="background:#2ecc71; color:white;" onclick="sellStock()">매도</button>
+            </div>
+        </div>
+    </div>
+    <div class="log" id="log"></div>
+</div>
+
+<script>
+    let money = 1000000;
+    let stockCount = 0;
+    let currentPrice = 10000;
+    let isGameRunning = false;
+
+    // 게임 시작 함수
+    function startGame(userType) {
+        document.getElementById('intro-screen').style.display = 'none';
+        document.getElementById('game-main').style.display = 'block';
+        document.getElementById('user-info').innerText = `접속 모드: ${userType}`;
+        addLog(`${userType} 모드로 게임을 시작합니다.`);
+        isGameRunning = true;
+        startPriceUpdate(); // 게임 시작 시 시세 변동 개시
+    }
+
+    function updateUI() {
+        document.getElementById('money').innerText = money.toLocaleString() + "원";
+        document.getElementById('assets').innerText = `보유 주식: ${stockCount}주`;
+        document.getElementById('stock-price').innerText = currentPrice.toLocaleString() + "원";
+    }
+
+    function work() {
+        money += 10000;
+        addLog("업무 보상으로 10,000원을 벌었습니다.");
+        updateUI();
+    }
+
+    function buyStock() {
+        if (money >= currentPrice) {
+            money -= currentPrice;
+            stockCount++;
+            addLog(`매수 완료: ${currentPrice.toLocaleString()}원`);
+            updateUI();
+        } else { addLog("자산이 부족합니다!"); }
+    }
+
+    function sellStock() {
+        if (stockCount > 0) {
+            money += currentPrice;
+            stockCount--;
+            addLog(`매도 완료: ${currentPrice.toLocaleString()}원`);
+            updateUI();
+        } else { addLog("보유 주식이 없습니다!"); }
+    }
+
+    function startPriceUpdate() {
+        setInterval(() => {
+            if(!isGameRunning) return;
+            const changePercent = (Math.random() * 40 - 20); 
+            currentPrice = Math.max(1000, Math.floor(currentPrice * (1 + changePercent / 100)));
+            const priceElement = document.getElementById('stock-price');
+            priceElement.className = changePercent > 0 ? 'price-up' : 'price-down';
+            updateUI();
+        }, 3000);
+    }
+
+    function addLog(msg) {
+        const logBox = document.getElementById('log');
+        logBox.innerHTML = `> ${msg}<br>${logBox.innerHTML}`;
+    }
+</script>
 </body>
 </html>
