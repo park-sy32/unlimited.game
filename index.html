@@ -29,20 +29,48 @@
         <div id="user-info" style="font-size: 14px; color: #bdc3c7; margin-bottom: 5px;">사용자: -</div>
         <div>현재 자산</div>
         <div class="money" id="money">1,000,000원</div>
-        <div id="assets" style="font-size: 14px; margin-top: 5px;">보유 주식: 0주</div>
+        <div id="assets" style="font-size: 14px; margin-top: 5px;">
+            보유 코인: <span id="owned-coin">0</span>개, 
+            보유 주식: <span id="owned-stock">0</span>주, 
+            보유 건물: <span id="owned-buildings">0</span>채
+        </div>
     </div>
 
-    <button class="btn-work" onclick="work()">💪 업무 수행 (+10,000원)</button>
+    <div class="tab-menu" style="display: flex; gap: 5px; margin-bottom: 15px;">
+        <button onclick="showTab('work')" style="flex:1;">🛠️ 업무</button>
+        <button onclick="showTab('investment')" style="flex:1; background:#f1c40f; color:#000;">📈 재테크</button>
+        <button onclick="showTab('realestate')" style="flex:1; background:#9b59b6; color:white;">🏠 부동산</button>
+    </div>
 
-    <div class="stock-market">
-        <h3>🔥 가상 자산 시세</h3>
-        <div class="stock-item">
-            <div><strong>한태코인</strong><br><span id="stock-price">10,000원</span></div>
-            <div>
-                <button style="background:#e74c3c; color:white;" onclick="buyStock()">매수</button>
-                <button style="background:#2ecc71; color:white;" onclick="sellStock()">매도</button>
+    <div id="tab-work" class="tab-content">
+        <button class="btn-work" onclick="work()">💪 단순 업무 수행 (+10,000원)</button>
+        <div id="job-list">
+        </div>
+    </div>
+
+    <div id="tab-investment" class="tab-content" style="display:none;">
+        <div class="stock-market">
+            <h3>💰 금융 시장</h3>
+            <div class="invest-item">
+                <strong>🪙 비트코인</strong> <span id="coin-price">50,000,000원</span>
+                <button onclick="buyAsset('coin')">매수</button>
+                <button onclick="sellAsset('coin')">매도</button>
+            </div>
+            <div class="invest-item">
+                <strong>🏢 한태전자</strong> <span id="stock-price">70,000원</span>
+                <button onclick="buyAsset('stock')">매수</button>
+                <button onclick="sellAsset('stock')">매도</button>
             </div>
         </div>
+    </div>
+
+    <div id="tab-realestate" class="tab-content" style="display:none;">
+        <h3>🏠 부동산 매물</h3>
+        <div class="invest-item">
+            <strong>🏢 강남 빌딩</strong> <span id="building1-price">10,000,000,000원</span>
+            <button onclick="buyBuilding('building1')">구매하기</button>
+        </div>
+        <p style="font-size:12px;">*부동산은 소유 시 매초 자동으로 임대수익이 들어옵니다.</p>
     </div>
     <div class="log" id="log"></div>
 </div>

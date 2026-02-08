@@ -213,3 +213,65 @@ button {
 .hidden {
     display: none;
 }
+
+/* Tab Menu Styles */
+.tab-menu {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 15px;
+}
+
+.tab-menu button {
+    flex: 1;
+    background: var(--stats-bg);
+    color: var(--stats-text);
+    border: 1px solid var(--container-border);
+    padding: 10px 5px;
+    font-size: 14px;
+}
+
+.tab-menu button:hover {
+    filter: brightness(1.1);
+}
+
+.tab-menu button[style*="background:#f1c40f"] { /* 재테크 탭 버튼 */
+    color: #000 !important;
+}
+.tab-menu button[style*="background:#9b59b6"] { /* 부동산 탭 버튼 */
+    color: white !important;
+}
+
+
+/* Invest Item Styles */
+.invest-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--log-border);
+}
+
+.invest-item:last-child {
+    border-bottom: none;
+}
+
+.invest-item button {
+    padding: 8px 15px;
+    font-size: 13px;
+    margin-left: 5px;
+    width: auto; /* override default button width */
+}
+
+/* Specific button colors for consistency */
+.invest-item button[onclick*="buyAsset"] {
+    background: #2ecc71; /* Green for buy */
+    color: white;
+}
+.invest-item button[onclick*="sellAsset"] {
+    background: #e74c3c; /* Red for sell */
+    color: white;
+}
+.invest-item button[onclick*="buyBuilding"] {
+    background: #3498db; /* Blue for buy building */
+    color: white;
+}
