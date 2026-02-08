@@ -12,36 +12,8 @@
         <span class="url-text">https://unlimited.hantae.io</span>
         <h1 style="font-size: 40px; margin-bottom: 30px;">UNLIMITED</h1>
         <p>현실을 넘어선 무한한 자산의 세계</p>
-        <button class="btn-login">로그인하여 시작</button><br>
-        <button class="btn-guest" onclick="startGame('게스트')">게스트 모드로 참가</button>
-    </div>
-
-    <!-- 로그인 모달 -->
-    <div id="login-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>로그인</h2>
-            <form id="login-form">
-                <input type="text" placeholder="아이디" required>
-                <input type="password" placeholder="비밀번호" required>
-                <button type="submit" class="btn-login">로그인</button>
-            </form>
-            <button id="show-register-modal" class="btn-guest" style="width: 100%; margin-top: 10px;">회원가입하기</button>
-            <button class="btn-close-modal">닫기</button>
-        </div>
-    </div>
-
-    <!-- 회원가입 모달 -->
-    <div id="register-modal" class="modal-overlay hidden">
-        <div class="modal-content">
-            <h2>회원가입</h2>
-            <form id="register-form">
-                <input type="text" placeholder="아이디" required>
-                <input type="password" placeholder="비밀번호" required>
-                <input type="password" placeholder="비밀번호 확인" required>
-                <button type="submit" class="btn-login">회원가입</button>
-            </form>
-            <button class="btn-close-modal register-close-btn">닫기</button>
-        </div>
+        <button class="btn-login" onclick="loginWithGoogle()">Google 계정으로 로그인</button><br>
+        <button class="btn-guest" onclick="registerUser()">Google 계정으로 회원가입</button>
     </div>
 </div>
 
@@ -76,7 +48,6 @@
 </div>
 
 <script src="main.js"></script>
-</body>
-</html>
+<script type="module" src="firebase.js"></script>
 </body>
 </html>
