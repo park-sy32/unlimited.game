@@ -39,7 +39,7 @@ body {
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    height: 100vh; 
+    min-height: 100vh; /* height -> min-height */
     margin: 0; 
     transition: background 0.3s, color 0.3s;
 }
@@ -70,11 +70,16 @@ body {
 .game-container { 
     position: relative;
     background: var(--container-bg); 
-    padding: 30px; 
+    padding: 20px; /* Adjust padding for wider layout */
     border-radius: 15px; 
-    width: 400px; 
+    width: 90%; /* Changed from 400px */
+    max-width: 1200px; /* Max width for larger screens */
+    min-height: 600px; /* Ensure minimum height */
     color: var(--text-color); 
-    display: none; 
+    display: flex; /* Use flexbox */
+    flex-direction: row; /* Horizontal layout */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    gap: 20px; /* Space between sections */
     border: 1px solid var(--container-border);
 }
 
@@ -274,4 +279,35 @@ button {
 .invest-item button[onclick*="buyBuilding"] {
     background: #3498db; /* Blue for buy building */
     color: white;
+}
+
+/* Game Panels Layout */
+#game-left-panel {
+    flex: 0 0 250px; /* Fixed width for left panel */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 10px;
+    border-right: 1px solid var(--container-border);
+}
+
+#game-center-panel {
+    flex: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+}
+
+#game-right-panel {
+    flex: 0 0 250px; /* Fixed width for right panel (log) */
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    border-left: 1px solid var(--container-border);
+}
+
+/* Adjust log height within the new panel */
+#game-right-panel .log {
+    flex: 1; /* Allow log to fill available vertical space */
+    max-height: 100%; /* Ensure it doesn't overflow its parent */
 }
